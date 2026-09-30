@@ -1,0 +1,22 @@
+HTTP/1.1 200 OK
+Date: Wed, 30 Sep 2026 21:08:01 GMT
+Server: Apache
+X-Robots-Tag: noindex
+Link: <https://viajarafondo.com/wp-json/>; rel="https://api.w.org/"
+X-Content-Type-Options: nosniff
+Access-Control-Expose-Headers: X-WP-Total, X-WP-TotalPages, Link
+Access-Control-Allow-Headers: Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type
+X-WP-Total: 28
+X-WP-TotalPages: 1
+Allow: GET
+Vary: Origin,Accept-Encoding
+Set-Cookie: _fbp=fb.1.1790802481688.613485303.AQECAQIB; expires=Tue, 29 Dec 2026 21:08:01 GMT; Max-Age=7776000; path=/; domain=viajarafondo.com; secure; SameSite=Lax
+Cache-Control: no-cache, no-store, must-revalidate
+Pragma: no-cache
+Upgrade: h2,h2c
+Connection: Upgrade
+host-header: c2hhcmVkLmJsdWVob3N0LmNvbQ==
+X-Endurance-Cache-Level: 2
+Transfer-Encoding: chunked
+Content-Type: application/json; charset=UTF-8
+

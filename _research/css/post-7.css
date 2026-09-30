@@ -1,0 +1,36 @@
+.elementor-kit-7{--e-global-color-primary:#031124;--e-global-color-secondary:#F8F8F8;--e-global-color-text:#D3C8BD;--e-global-color-accent:#BA9A8B;--e-global-typography-primary-font-family:"Playfair Display";--e-global-typography-primary-font-weight:400;--e-global-typography-secondary-font-family:"Galano Grotesque";--e-global-typography-secondary-font-weight:500;--e-global-typography-text-font-family:"Galano Grotesque";--e-global-typography-text-font-weight:300;--e-global-typography-accent-font-family:"Galano Grotesque";--e-global-typography-accent-font-weight:300;background-color:var( --e-global-color-secondary );color:var( --e-global-color-primary );font-family:"Galano Grotesque", Sans-serif;font-size:17px;font-weight:300;line-height:1.5em;}.elementor-kit-7 button,.elementor-kit-7 input[type="button"],.elementor-kit-7 input[type="submit"],.elementor-kit-7 .elementor-button{background-color:var( --e-global-color-primary );font-family:"Galano Grotesque", Sans-serif;font-size:18px;font-weight:300;color:var( --e-global-color-secondary );border-style:solid;border-width:1px 1px 1px 1px;border-color:var( --e-global-color-primary );border-radius:30px 30px 30px 30px;padding:15px 45px 15px 45px;}.elementor-kit-7 button:hover,.elementor-kit-7 button:focus,.elementor-kit-7 input[type="button"]:hover,.elementor-kit-7 input[type="button"]:focus,.elementor-kit-7 input[type="submit"]:hover,.elementor-kit-7 input[type="submit"]:focus,.elementor-kit-7 .elementor-button:hover,.elementor-kit-7 .elementor-button:focus{background-color:#EAEAEA00;color:var( --e-global-color-primary );border-style:solid;border-width:1px 1px 1px 1px;border-color:var( --e-global-color-primary );border-radius:30px 30px 30px 30px;}.elementor-kit-7 e-page-transition{background-color:#FFBC7D;}.elementor-kit-7 a{color:var( --e-global-color-primary );}.elementor-kit-7 h1{color:var( --e-global-color-primary );font-family:"Playfair Display", Sans-serif;font-weight:700;}.elementor-kit-7 h2{color:var( --e-global-color-primary );font-family:"Playfair Display", Sans-serif;font-size:35px;font-weight:700;}.elementor-kit-7 h3{color:var( --e-global-color-primary );font-family:"Playfair Display", Sans-serif;font-size:25px;font-weight:800;}.elementor-kit-7 h6{color:var( --e-global-color-primary );font-family:"Galano Grotesque", Sans-serif;font-size:22px;font-weight:500;text-transform:uppercase;}.elementor-section.elementor-section-boxed > .elementor-container{max-width:1360px;}.e-con{--container-max-width:1360px;}.elementor-widget:not(:last-child){margin-block-end:20px;}.elementor-element{--widgets-spacing:20px 20px;--widgets-spacing-row:20px;--widgets-spacing-column:20px;}{}h1.entry-title{display:var(--page-title-display);}.site-header{padding-inline-end:0px;padding-inline-start:0px;}@media(max-width:1024px){.elementor-kit-7{font-size:16px;line-height:1.4em;}.elementor-kit-7 h2{font-size:28px;}.elementor-kit-7 h3{font-size:20px;}.elementor-section.elementor-section-boxed > .elementor-container{max-width:1024px;}.e-con{--container-max-width:1024px;}}@media(max-width:767px){.elementor-kit-7{font-size:15px;line-height:1.4em;}.elementor-kit-7 h2{font-size:22px;}.elementor-kit-7 h3{font-size:18px;}.elementor-section.elementor-section-boxed > .elementor-container{max-width:767px;}.e-con{--container-max-width:767px;}}/* Start Custom Fonts CSS */@font-face {
+	font-family: 'Galano Grotesque';
+	font-style: normal;
+	font-weight: 300;
+	font-display: auto;
+	src: url('https://viajarafondo.com/wp-content/uploads/2024/04/GalanoClassic-Light.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Galano Grotesque';
+	font-style: normal;
+	font-weight: 400;
+	font-display: auto;
+	src: url('https://viajarafondo.com/wp-content/uploads/2024/04/GalanoClassic-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Galano Grotesque';
+	font-style: normal;
+	font-weight: 500;
+	font-display: auto;
+	src: url('https://viajarafondo.com/wp-content/uploads/2024/04/GalanoClassic-Medium.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Galano Grotesque';
+	font-style: normal;
+	font-weight: 700;
+	font-display: auto;
+	src: url('https://viajarafondo.com/wp-content/uploads/2024/04/GalanoClassic-Bold.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Galano Grotesque';
+	font-style: normal;
+	font-weight: 800;
+	font-display: auto;
+	src: url('https://viajarafondo.com/wp-content/uploads/2024/04/GalanoClassic-Black.ttf') format('truetype');
+}
+/* End Custom Fonts CSS */

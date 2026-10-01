@@ -34,6 +34,7 @@ async def main():
                 ),
             )
             page = await ctx.new_page()
+            await page.emulate_media(reduced_motion='reduce')
             errors = []
             page.on("console", lambda m: errors.append(f"{m.type}: {m.text}") if m.type in ("error",) else None)
             page.on("pageerror", lambda e: errors.append(f"pageerror: {e}"))

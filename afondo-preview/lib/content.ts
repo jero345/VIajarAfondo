@@ -1,23 +1,22 @@
 import type { StaticImageData } from "next/image";
 
-import imgHero from "@/public/images/hero-globo-masai-mara-atardecer.webp";
-import imgALaMedida from "@/public/images/a-la-medida-viajera-masai-mara-globos.webp";
-import imgGrupales from "@/public/images/grupales-peru-machu-picchu.webp";
-import imgCroacia from "@/public/images/destino-croacia-dubrovnik.webp";
-import imgKenia from "@/public/images/destino-kenia-maasai.webp";
-import imgSudafrica from "@/public/images/destino-sudafrica-leopardo.webp";
-import imgGrecia from "@/public/images/destino-grecia-mar-buganvillas.webp";
-import imgJapon from "@/public/images/destino-japon-castillo-osaka.webp";
-import imgTurquia from "@/public/images/destino-turquia-santa-sofia.webp";
-import imgVietnam from "@/public/images/destino-vietnam-bahia-karst.webp";
-import imgNamibia from "@/public/images/destino-namibia-dunas.webp";
-import imgIndia from "@/public/images/destino-india-taj-mahal-aves.webp";
-import imgPeru from "@/public/images/salida-peru-valle-sagrado.webp";
-import imgEgipto from "@/public/images/salida-egipto-piramides-globo.webp";
-import imgItalia from "@/public/images/salida-italia-skyway-monte-bianco.webp";
-import imgFamilia from "@/public/images/historia-familia-calvete-orrego.webp";
-import imgLeonas from "@/public/images/porque-leonas-jeep-afondo.webp";
-import imgNilo from "@/public/images/newsletter-nilo-feluccas-atardecer.webp";
+import imgHeroAfrica from "@/public/images/v2/hero-africa-jirafa-atardecer.webp";
+import imgHeroPeru from "@/public/images/grupales-peru-machu-picchu.webp";
+import imgHeroEgipto from "@/public/images/salida-egipto-piramides-globo.webp";
+import imgCardEgipto from "@/public/images/v2/card-egipto-esfinge.webp";
+import imgCardChina from "@/public/images/v2/card-china-gran-muralla.webp";
+import imgCardKenia from "@/public/images/v2/card-kenia-elefantes.webp";
+import imgCardGrecia from "@/public/images/v2/card-grecia-santorini.webp";
+import imgMundo from "@/public/images/v2/mundo-viajera-binoculares-safari.webp";
+import imgGrupales from "@/public/images/v2/vivir-grupales-safari.webp";
+import imgALaMedida from "@/public/images/v2/vivir-a-la-medida-dunas.webp";
+import imgFamiliar from "@/public/images/v2/vivir-familiar-nieve.webp";
+import imgPareja from "@/public/images/v2/vivir-pareja-santorini.webp";
+import imgFamilia from "@/public/images/v2/historia-familia-calvete-orrego.webp";
+import imgIndia from "@/public/images/v2/proximo-india.webp";
+import imgPeruTren from "@/public/images/v2/proximo-peru-en-tren.webp";
+import imgRoma from "@/public/images/v2/proximo-roma.webp";
+import imgSudafrica from "@/public/images/v2/proximo-sudafrica.webp";
 
 export const contact = {
   whatsapp: "573117491153",
@@ -31,235 +30,233 @@ export const contact = {
   privacy: "https://viajarafondo.com/politicas-de-privacidad/",
   terms: "https://viajarafondo.com/politica-turismo-terminos-y-condiciones-afondo/",
   rnt: "https://viajarafondo.com/wp-content/uploads/2024/05/REGISTRO-NACIONAL-DE-TURISMO-2021.pdf",
+  groupTrips: "https://viajarafondo.com/viajes-grupales/",
   calendar2027: "https://viajarafondo.com/viajes-grupales-2027/",
+  story: "https://viajarafondo.com/quienes-somos/",
 };
 
 export function whatsappLink(message: string) {
   return `https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(message)}`;
 }
 
-export const designTripLink = whatsappLink("Hola AFondo, quiero diseñar un viaje a la medida.");
+export const planTripLink = whatsappLink("Hola AFondo, quiero empezar a planear mi viaje.");
 
 export const nav = [
-  { label: "Viajes a la medida", href: "#como-viajar" },
-  { label: "Viajes grupales", href: "#salidas" },
+  { label: "Viajes a la medida", href: "#a-la-medida" },
+  { label: "Viajes grupales", href: "#grupales" },
   { label: "Destinos", href: "#destinos" },
   { label: "Nuestra historia", href: "#historia" },
-  // The 2021 blog is stale; Instagram is where the agency publishes its stories today.
+];
+
+/** Extra links that only live in the hamburger menu. */
+export const menuExtra = [
+  { label: "Próximos destinos", href: "#proximos" },
   { label: "Historias", href: contact.instagram, external: true },
 ];
 
-export const hero = {
-  image: imgHero,
-  alt: "Globo aerostático sobre la sabana del Masai Mara al atardecer, con ñus pastando",
+export type HeroSlide = {
+  id: string;
+  /** Each entry is one line of the headline as drawn in the mockup. */
+  lines: string[];
+  image: StaticImageData;
+  alt: string;
+  position: string;
+  cta: { label: string; href: string };
 };
 
-export const travelModes = [
+// The mockup draws three dots with the middle one active, so África is slide 2 of 3 and loads first.
+// PROPUESTA: the mockup only designs the África slide. Perú and Egipto reuse the client's photos with
+// copy in the same voice; confirm or replace with the client.
+export const heroSlides: HeroSlide[] = [
   {
-    id: "a-la-medida",
-    title: "Viajes a la medida",
-    body: "Tu viaje comienza con un sueño. Diseñamos contigo una ruta personal, sin itinerarios preestablecidos.",
-    cta: { label: "Diseña tu viaje", href: designTripLink, external: true },
-    image: imgALaMedida,
-    alt: "Viajera de AFondo en la sabana del Masai Mara con globos al fondo",
-    position: "50% 30%",
+    id: "peru",
+    lines: ["RECORRE PERÚ AL", "RITMO DE LOS ANDES."],
+    image: imgHeroPeru,
+    alt: "La ciudadela de Machu Picchu entre montañas y nubes",
+    position: "50% 55%",
+    cta: { label: "Déjanos asesorarte", href: whatsappLink("Hola AFondo, quiero asesoría para un viaje a Perú.") },
   },
+  {
+    id: "africa",
+    lines: ["DESCUBRE ÁFRICA EN", "SU ESTADO MÁS SALVAJE."],
+    image: imgHeroAfrica,
+    alt: "Jirafa entre acacias en la sabana africana al atardecer",
+    position: "50% 100%",
+    cta: { label: "Déjanos asesorarte", href: whatsappLink("Hola AFondo, quiero asesoría para un viaje a África.") },
+  },
+  {
+    id: "egipto",
+    lines: ["VIAJA A EGIPTO, DONDE", "LA HISTORIA SIGUE EN PIE."],
+    image: imgHeroEgipto,
+    alt: "Globo aerostático sobre las pirámides de Giza",
+    position: "50% 60%",
+    cta: { label: "Déjanos asesorarte", href: whatsappLink("Hola AFondo, quiero asesoría para un viaje a Egipto.") },
+  },
+];
+export const heroInitialSlide = 1;
+
+export type TripCard = {
+  destination: string;
+  /** Title colour, sampled from the mockup. */
+  color: string;
+  image: StaticImageData;
+  alt: string;
+  /** Photo placement inside the 375x474 card, in % of the card, measured from the mockup PDF. */
+  frame: { left: string; top: string; width: string; height: string };
+  label: string[];
+  group: string[];
+  dates: string[];
+};
+
+// MOCKUP: the four cards share "10-21 DE MAYO DE 2027" and "grupo mínimo 20 personas".
+// Confirm the real dates and group size for each trip with the client before publishing.
+export const tripCards: TripCard[] = [
+  {
+    destination: "Egipto",
+    color: "#f8c901",
+    image: imgCardEgipto,
+    alt: "La Esfinge y una pirámide de Giza bajo el cielo azul",
+    frame: { left: "-2.133%", top: "-17.722%", width: "104.267%", height: "131.435%" },
+    label: ["Viaje grupal", "2027"],
+    group: ["Grupo", "mínimo 20", "personas"],
+    dates: ["10–21 de", "mayo de 2027"],
+  },
+  {
+    destination: "China",
+    color: "#fdc2a9",
+    image: imgCardChina,
+    alt: "La Gran Muralla China recorriendo las montañas en otoño",
+    frame: { left: "-8.267%", top: "-38.397%", width: "121.867%", height: "153.586%" },
+    label: ["Viaje grupal", "2027"],
+    group: ["Grupo", "mínimo 20", "personas"],
+    dates: ["10–21 de", "mayo de 2027"],
+  },
+  {
+    destination: "Kenia",
+    color: "#9cff99",
+    image: imgCardKenia,
+    alt: "Dos elefantes bebiendo en una charca de la sabana",
+    frame: { left: "-0.8%", top: "-31.435%", width: "105.6%", height: "133.333%" },
+    label: ["Viaje grupal", "2027"],
+    group: ["Grupo", "mínimo 20", "personas"],
+    dates: ["10–21 de", "mayo de 2027"],
+  },
+  {
+    destination: "Grecia",
+    color: "#aae2f7",
+    image: imgCardGrecia,
+    alt: "Cúpulas azules de Santorini sobre el mar Egeo al atardecer",
+    frame: { left: "-6.4%", top: "-37.342%", width: "116.8%", height: "147.257%" },
+    label: ["Viaje grupal", "2027"],
+    group: ["Grupo", "mínimo 20", "personas"],
+    dates: ["10–21 de", "mayo de 2027"],
+  },
+];
+
+export const tripFilters = [
+  { label: "Ofertas", href: whatsappLink("Hola AFondo, quiero conocer las ofertas vigentes."), variant: "outline" as const },
+  { label: "Ver por fechas", href: contact.calendar2027, variant: "outline" as const },
+  { label: "Ver más", href: contact.groupTrips, variant: "solid" as const },
+];
+
+export const mundo = {
+  image: imgMundo,
+  alt: "Viajera con binoculares en un vehículo de safari observando jirafas",
+};
+
+export type TravelStyle = {
+  id: string;
+  tab: string;
+  title: string[];
+  paragraphs: string[][];
+  image: StaticImageData;
+  alt: string;
+  position: { mobile: string; desktop: string };
+  /** The Grupales photo comes pre-graded from the designer; the others need a scrim behind the copy. */
+  scrim: boolean;
+  proposal: boolean;
+};
+
+export const travelStyles: TravelStyle[] = [
   {
     id: "grupales",
-    title: "Viajes grupales",
-    body: "Grupos pequeños, rutas curadas y guías locales. Hay viajes que recorren mapas y otros que recorren emociones.",
-    cta: { label: "Ver salidas grupales", href: "#salidas", external: false },
+    tab: "Grupales",
+    title: ["Comparte el", "asombro"],
+    paragraphs: [
+      ["Hay experiencias que se disfrutan aún más cuando se comparten.", "Descubre nuevos destinos junto a personas que sienten la misma", "curiosidad por el mundo."],
+      ["En AFondo cuidamos cada detalle para que te dediques a vivir el", "viaje, compartir historias y crear conexiones que continúan más", "allá del regreso."],
+    ],
     image: imgGrupales,
-    alt: "La ciudadela de Machu Picchu entre montañas y nubes",
-    position: "45% 50%",
+    alt: "Viajeros en un vehículo de safari con el logo de AFondo observando la sabana",
+    position: { mobile: "72% 50%", desktop: "50% 50%" },
+    scrim: false,
+    proposal: false,
+  },
+  // PROPUESTA: the mockup only designs the Grupales tab. Copy below comes from the client's
+  // "Viajes a la medida" page; Familiar and Pareja are written in the same voice. Validate with the client.
+  {
+    id: "a-la-medida",
+    tab: "A la medida",
+    title: ["Diseña tu", "propio viaje"],
+    paragraphs: [
+      ["Viajas para cumplir una promesa que algún día te hiciste", "y no solo para conocer un lugar."],
+      ["Creamos juntos tu ruta personalizada, sin itinerarios", "preestablecidos, poniendo atención a tus prioridades."],
+    ],
+    image: imgALaMedida,
+    alt: "Viajera sentada en una duna al atardecer",
+    position: { mobile: "60% 60%", desktop: "50% 62%" },
+    scrim: true,
+    proposal: true,
+  },
+  {
+    id: "familiar",
+    tab: "Familiar",
+    title: ["Viajar en", "familia"],
+    paragraphs: [
+      ["Hay viajes que se convierten en historias familiares para siempre.", "Descubran el mundo a un ritmo pensado para grandes y pequeños."],
+      ["En AFondo cuidamos cada detalle para que solo se ocupen de", "disfrutar, aprender y crear recuerdos juntos."],
+    ],
+    image: imgFamiliar,
+    alt: "Madre e hija saludando desde una moto de nieve en un viaje grupal de AFondo",
+    position: { mobile: "30% 50%", desktop: "50% 40%" },
+    scrim: true,
+    proposal: true,
+  },
+  {
+    id: "pareja",
+    tab: "Pareja",
+    title: ["Un viaje", "para dos"],
+    paragraphs: [
+      ["Algunos destinos se descubren mejor de a dos: atardeceres,", "mesas para compartir y momentos que no se repiten."],
+      ["Diseñamos cada detalle a su medida para que solo se ocupen de", "vivir el viaje y celebrar lo que los une."],
+    ],
+    image: imgPareja,
+    alt: "Pareja contemplando el atardecer sobre el mar en Santorini",
+    position: { mobile: "55% 50%", desktop: "50% 30%" },
+    scrim: true,
+    proposal: true,
   },
 ];
 
-export type Destination = {
-  name: string;
-  line: string;
-  image: StaticImageData;
-  alt: string;
-  position?: string;
-  /** Tailwind grid placement for the desktop bento (lg and up). */
-  cell: string;
-  sizes: string;
-};
-
-export const destinations: Destination[] = [
-  {
-    name: "Kenia",
-    line: "Sabanas doradas y culturas que laten desde hace milenios.",
-    image: imgKenia,
-    alt: "Guerreros maasai con mantas rojas saltando en la sabana de Kenia",
-    position: "50% 35%",
-    cell: "lg:col-span-6 lg:row-span-2",
-    sizes: "(min-width: 1024px) 50vw, 80vw",
-  },
-  {
-    name: "Croacia",
-    line: "Un viaje a las joyas del Adriático.",
-    image: imgCroacia,
-    alt: "Murallas y tejados de Dubrovnik sobre el mar Adriático al atardecer",
-    position: "40% 50%",
-    cell: "lg:col-span-3 lg:row-span-2",
-    sizes: "(min-width: 1024px) 25vw, 80vw",
-  },
-  {
-    name: "Grecia",
-    line: "La belleza eterna del Mediterráneo.",
-    image: imgGrecia,
-    alt: "Buganvillas fucsias frente al mar azul de una isla griega",
-    position: "50% 60%",
-    cell: "lg:col-span-3",
-    sizes: "(min-width: 1024px) 25vw, 80vw",
-  },
-  {
-    name: "Turquía",
-    line: "Imperios, mezquitas y bazares entre dos continentes.",
-    // TODO(cliente): la única foto disponible de Turquía mide 477 px. Pedir el original en alta resolución.
-    image: imgTurquia,
-    alt: "La basílica de Santa Sofía en Estambul con sus minaretes",
-    cell: "lg:col-span-3",
-    sizes: "(min-width: 1024px) 25vw, 80vw",
-  },
-  {
-    name: "Japón",
-    line: "Santuarios, rituales y la belleza de lo efímero.",
-    image: imgJapon,
-    alt: "Castillo de Osaka con tejados verde jade sobre un bosque",
-    position: "50% 40%",
-    cell: "lg:col-span-4 lg:row-span-2",
-    sizes: "(min-width: 1024px) 34vw, 80vw",
-  },
-  {
-    name: "Vietnam",
-    line: "Bahías de piedra caliza y una cocina que se vive en la calle.",
-    // TODO(cliente): la única foto disponible de Vietnam mide 477 px. Pedir el original en alta resolución.
-    image: imgVietnam,
-    alt: "Islotes de piedra caliza sobre el mar al atardecer",
-    cell: "lg:col-span-3",
-    sizes: "(min-width: 1024px) 25vw, 80vw",
-  },
-  {
-    name: "India",
-    line: "Colores, templos y un caos armonioso que cambia la mirada.",
-    image: imgIndia,
-    alt: "El Taj Mahal al atardecer con una bandada de aves",
-    position: "50% 55%",
-    cell: "lg:col-span-5",
-    sizes: "(min-width: 1024px) 42vw, 80vw",
-  },
-  {
-    name: "Namibia",
-    line: "Silencio, arena y horizonte.",
-    image: imgNamibia,
-    alt: "Duna naranja de Sossusvlei bajo un cielo azul",
-    cell: "lg:col-span-3",
-    sizes: "(min-width: 1024px) 25vw, 80vw",
-  },
-  {
-    name: "Sudáfrica",
-    line: "Vida salvaje en el sur de África.",
-    image: imgSudafrica,
-    alt: "Leopardo entre la hierba alta mirando a la cámara",
-    position: "50% 30%",
-    cell: "lg:col-span-5",
-    sizes: "(min-width: 1024px) 42vw, 80vw",
-  },
-];
-
-export type Departure = {
-  destination: string;
-  dates: string;
-  status: string;
-  route: string;
-  body?: string;
-  price: string;
-  image: StaticImageData;
-  alt: string;
-  whatsapp: string;
-};
-
-export const departures: Departure[] = [
-  {
-    destination: "Perú",
-    dates: "13 al 22 de noviembre de 2026",
-    status: "Últimos cupos",
-    route: "Lima, Cusco, Valle Sagrado y Machu Picchu.",
-    body: "Piedras que ningún cemento sostiene, pueblos que el tiempo no logró borrar y una ciudadela que toca el cielo.",
-    price: "USD 4.890",
-    image: imgPeru,
-    alt: "Atardecer sobre el Valle Sagrado de los Incas en Perú",
-    whatsapp: whatsappLink("Hola AFondo, quiero información del viaje grupal a Perú del 13 al 22 de noviembre de 2026."),
-  },
-  {
-    destination: "Egipto + Jordania",
-    dates: "29 de diciembre de 2026 al 9 de enero de 2027",
-    status: "Cupos limitados",
-    route: "Del Nilo y los templos de los faraones a Petra y Wadi Rum.",
-    price: "USD 6.890",
-    image: imgEgipto,
-    alt: "Globo aerostático sobre las pirámides de Giza",
-    whatsapp: whatsappLink(
-      "Hola AFondo, quiero información del viaje grupal a Egipto + Jordania del 29 de diciembre de 2026 al 9 de enero de 2027.",
-    ),
-  },
-  {
-    destination: "Italia & la Nieve",
-    dates: "4 al 15 de enero de 2027",
-    status: "Cupos limitados",
-    route: "Turín, Lago de Orta, Aosta, Courmayeur y Milán.",
-    price: "EUR 6.820",
-    image: imgItalia,
-    alt: "Mirador sobre los Alpes nevados en el macizo del Mont Blanc",
-    whatsapp: whatsappLink("Hola AFondo, quiero información del viaje grupal Italia & la Nieve del 4 al 15 de enero de 2027."),
-  },
-];
-
-export const story = {
+export const historia = {
   image: imgFamilia,
   alt: "La familia Calvete Orrego, fundadores y equipo de AFondo",
-  paragraphs: [
-    "La historia de AFondo, como todo viaje, comienza con un encuentro. Eduardo Calvete, un español de alma curiosa, guiaba un recorrido de cuarenta días por Europa. Gloria Orrego, abogada colombiana, era una de las viajeras. Un primer beso en la Fontana di Trevi lo cambió todo.",
-    "Se casaron en Medellín, vivieron en España y volvieron para criar una familia. En 1988, en un garaje de Envigado, nació la agencia con el logo de una gaviota, porque el sueño siempre fue volar.",
-    "El propósito sigue siendo el mismo: enseñarles a los colombianos cómo se conoce el mundo con las seis letras de su nombre.",
-  ],
-  timeline: [
-    { mark: "El viaje", title: "Cuarenta días por Europa", body: "Eduardo guía, Gloria viaja. Un amor de verano que no terminó." },
-    { mark: "1988", title: "Un garaje en Envigado", body: "Nace la agencia y su gaviota, porque el sueño siempre fue volar." },
-    { mark: "Familia", title: "Tres hijos a bordo", body: "Varinia, David y Juan Manuel hacen crecer la fábrica de sueños cumplidos." },
-    { mark: "Hoy", title: "Agencia IATA en El Poblado", body: "Más de 35 años y aliados en 120 países que viven sus mismos valores." },
-    { mark: "2026 - 2027", title: "Nuevos capítulos", body: "Un calendario de viajes grupales que recorre emociones." },
-  ],
+  link: contact.story,
 };
 
-export const pillars = {
-  image: imgLeonas,
-  alt: "Dos leonas caminan junto al vehículo de safari con el logo de AFondo",
-  items: [
-    { title: "Somos Travel Coach", body: "Te guiamos según tus gustos y tus necesidades, desde la primera idea." },
-    { title: "Trayectoria IATA", body: "Agencia de viajes IATA con más de 35 años recorriendo el mundo AFondo." },
-    { title: "Acompañamiento 24/7", body: "Asesoría de principio a fin. Más que un apoyo, un compromiso AFondo." },
-    { title: "Guías locales", body: "En los viajes grupales, para que la inmersión en la cultura sea completa." },
-    { title: "Personalización", body: "Tú eres único y tu viaje también. Nos tomamos cada viaje como propio." },
-    { title: "Hoteles memorables", body: "De alta calidad en servicio, bien ubicados y con arquitectura acorde al destino." },
-    { title: "Innovación y creatividad", body: "Rutas en tendencia que mezclan experiencias locales con los íconos del destino." },
-    { title: "Enamoramos", body: "Lealtad y satisfacción, el resultado de crear experiencias de calidad superior." },
-  ],
-};
-
-// Heights are tuned per logo so wordmarks and emblems read at a similar optical size.
-export const allies = [
-  { name: "Air Europa", src: "/images/aliados/air-europa.webp", width: 357, height: 94, size: "h-7 md:h-8" },
-  { name: "Emirates", src: "/images/aliados/emirates.webp", width: 153, height: 94, size: "h-10 md:h-12" },
-  { name: "Ezus", src: "/images/aliados/ezus.webp", width: 234, height: 94, size: "h-7 md:h-8" },
-  { name: "Marriott", src: "/images/aliados/marriott.webp", width: 153, height: 94, size: "h-10 md:h-12" },
-  { name: "Small Luxury Hotels of the World", src: "/images/aliados/small-luxury-hotels.webp", width: 131, height: 94, size: "h-12 md:h-14" },
-  { name: "Turkish Airlines", src: "/images/aliados/turkish-airlines.webp", width: 256, height: 94, size: "h-8 md:h-9" },
+export const pillars = [
+  { title: "Somos Travel Coach", body: "Te guiamos según tus gustos y tus necesidades, desde la primera idea." },
+  { title: "Trayectoria IATA", body: "Agencia de viajes IATA con más de 35 años recorriendo el mundo AFondo." },
+  { title: "Acompañamiento 24/7", body: "Asesoría de principio a fin. Más que un apoyo, un compromiso AFondo." },
+  { title: "Guías locales", body: "En los viajes grupales, para que la inmersión en la cultura sea completa." },
+  { title: "Personalización", body: "Tú eres único y tu viaje también. Nos tomamos cada viaje como propio." },
+  { title: "Hoteles memorables", body: "De alta calidad en servicio, bien ubicados y con arquitectura acorde al destino." },
+  { title: "Innovación y creatividad", body: "Rutas en tendencia que mezclan experiencias locales con los íconos del destino." },
 ];
 
-export const newsletter = {
-  image: imgNilo,
-  alt: "Veleros faluca navegando el Nilo al atardecer",
-};
+export const upcoming = [
+  { name: "India", image: imgIndia, alt: "Estatua de Buda entre hojas de palma", whatsapp: "India" },
+  { name: "Perú en tren", image: imgPeruTren, alt: "Bailarines con trajes típicos dentro de un tren panorámico en Perú", whatsapp: "Perú en tren" },
+  { name: "Roma", image: imgRoma, alt: "El Coliseo de Roma bajo el cielo azul", whatsapp: "Roma" },
+  { name: "Sudáfrica", image: imgSudafrica, alt: "Leopardo entre la hierba alta mirando a la cámara", whatsapp: "Sudáfrica" },
+].map((d) => ({ ...d, href: whatsappLink(`Hola AFondo, quiero información sobre el viaje a ${d.whatsapp}.`) }));

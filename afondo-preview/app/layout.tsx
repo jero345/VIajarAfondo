@@ -1,20 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  style: ["normal", "italic"],
+// Brand fonts from the client's mockup. Replace the files in app/fonts/ (same names) to update them.
+const adelon = localFont({
+  variable: "--font-adelon-face",
   display: "swap",
+  fallback: ["Georgia", "serif"],
+  src: [
+    { path: "./fonts/AdelonSerial-Light.woff2", weight: "300", style: "normal" },
+    { path: "./fonts/AdelonSerial.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/AdelonSerial-Medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/AdelonSerial-Bold.woff2", weight: "700", style: "normal" },
+  ],
 });
 
-const outfit = Outfit({
-  variable: "--font-outfit",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+const surt = localFont({
+  variable: "--font-surt-face",
   display: "swap",
+  fallback: ["Helvetica Neue", "Arial", "sans-serif"],
+  src: [{ path: "./fonts/ATSurt-Light.woff2", weight: "300", style: "normal" }],
 });
 
 const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
@@ -26,27 +31,25 @@ export const metadata: Metadata = {
   title: "AFondo | Viajes a la medida y grupales desde 1988",
   description:
     "Agencia de viajes familiar de Medellín desde 1988. Viajes a la medida y grupales para conocer cada destino AFondo: su historia, su cultura, su mesa y su naturaleza.",
-  // This is a redesign proposal; keep it out of search results so it never competes with viajarafondo.com.
+  // Redesign proposal: keep it out of search results so it never competes with viajarafondo.com.
   robots: { index: false, follow: false },
   openGraph: {
-    title: "AFondo | Viajar AFondo, desde 1988",
-    description: "Viajes a la medida y grupales para conocer el mundo AFondo.",
+    title: "AFondo | Viajes a la medida y grupales",
+    description: "Porque viajar no es pasar por un lugar, sino conocerlo AFondo.",
     locale: "es_CO",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f1f2ef" },
-    { media: "(prefers-color-scheme: dark)", color: "#030b17" },
-  ],
+  themeColor: "#303f60",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${cormorant.variable} ${outfit.variable}`}>
-      <body className="min-h-dvh bg-bg text-ink antialiased">{children}</body>
+    <html lang="es" className={`${adelon.variable} ${surt.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

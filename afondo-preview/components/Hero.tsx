@@ -1,66 +1,105 @@
 "use client";
 
-import { m, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import Image from "next/image";
-import { useRef, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-import { buttonStyles } from "@/components/ui";
-import { designTripLink, hero } from "@/lib/content";
+import { heroInitialSlide, heroSlides } from "@/lib/content";
+
+const AUTOPLAY_MS = 7000;
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(heroInitialSlide);
+  const [paused, setPaused] = useState(false);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  // The photo trails the page slightly as the hero scrolls away: a quiet sense of depth.
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "7%"]);
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const delay = (seconds: number) => ({ "--rise-delay": `${seconds}s` }) as CSSProperties;
+  const go = useCallback((i: number) => setActive((i + heroSlides.length) % heroSlides.length), []);
+
+  useEffect(() => {
+    if (reduce || paused) return;
+    timer.current = setTimeout(() => go(active + 1), AUTOPLAY_MS);
+    return () => {
+      if (timer.current) clearTimeout(timer.current);
+    };
+  }, [active, paused, reduce, go]);
+
+  useEffect(() => {
+    const onVisibility = () => setPaused(document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
+  }, []);
 
   return (
     <section
       id="inicio"
-      ref={ref}
-      className="relative isolate flex min-h-[100dvh] items-end overflow-hidden bg-navy text-white"
+      className="hero"
+      aria-roledescription="carrusel"
+      aria-label="Destinos destacados"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
     >
-      <m.div className="absolute inset-x-0 -top-[8%] -z-10 h-[116%]" style={reduce ? undefined : { y: imageY }}>
-        <Image
-          src={hero.image}
-          alt={hero.alt}
-          fill
-          preload
-          sizes="100vw"
-          className="object-cover object-[55%_50%] md:object-center"
-        />
-      </m.div>
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(to_top,rgb(3_17_36/0.82)_0%,rgb(3_17_36/0.35)_45%,rgb(3_17_36/0.05)_70%,rgb(3_17_36/0.35)_100%)]"
-      />
+      <h1 className="sr-only">AFondo, viajes a la medida y grupales desde 1988</h1>
 
-      <m.div
-        style={reduce ? undefined : { opacity: copyOpacity }}
-        className="mx-auto w-full max-w-[1400px] px-4 pt-40 pb-24 sm:px-6 md:pb-20 lg:px-10"
-      >
-        {/* Headline is static on purpose: it is the LCP element and must paint with the first frame. */}
-        <div>
-          <p className="text-[12px] font-medium tracking-[0.22em] text-white/85 uppercase">Desde 1988</p>
-          <h1 className="mt-5 font-display text-[clamp(3.6rem,15vw,10.5rem)] leading-[0.95] font-normal tracking-[-0.02em]">
-            Viajar <em className="italic">AFondo</em>
-          </h1>
-        </div>
-        <p style={delay(0.2)} className="rise mt-6 max-w-[34ch] text-lg leading-relaxed text-white/88 md:text-xl">
-          Viajar no es pasar por un lugar, sino conocerlo: su historia, su cultura, su mesa y su naturaleza.
-        </p>
-        <div style={delay(0.35)} className="rise mt-10 grid gap-3 sm:flex sm:flex-wrap">
-          <a href={designTripLink} target="_blank" rel="noopener noreferrer" className={buttonStyles.onPhoto}>
-            Diseña tu viaje
-          </a>
-          <a href="#salidas" className={buttonStyles.outlineOnPhoto}>
-            Ver salidas grupales
-          </a>
-        </div>
-      </m.div>
+      {heroSlides.map((slide, i) => {
+        const isActive = i === active;
+        return (
+          <div
+            key={slide.id}
+            className={`hero__slide${isActive ? " is-active" : ""}`}
+            role="group"
+            aria-roledescription="diapositiva"
+            aria-label={`${i + 1} de ${heroSlides.length}`}
+            aria-hidden={!isActive}
+          >
+            <div className="hero__media">
+              <Image
+                src={slide.image}
+                alt={slide.alt}
+                fill
+                sizes="100vw"
+                preload={i === heroInitialSlide}
+                loading={i === heroInitialSlide ? "eager" : "lazy"}
+                style={{ objectPosition: slide.position }}
+              />
+            </div>
+            <div className="hero__content">
+              <h2 className="hero__title ff-adelon">
+                {slide.lines.map((line, k) => (
+                  <span key={line}>
+                    {line}
+                    {k < slide.lines.length - 1 && " "}
+                  </span>
+                ))}
+              </h2>
+              <a
+                href={slide.cta.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hero__cta ff-surt"
+                tabIndex={isActive ? 0 : -1}
+              >
+                {slide.cta.label}
+              </a>
+            </div>
+          </div>
+        );
+      })}
+
+      <div className="hero__dots dots">
+        {heroSlides.map((slide, i) => (
+          <button
+            key={slide.id}
+            type="button"
+            className={`dot${i === active ? " is-active" : ""}`}
+            aria-label={`Ver diapositiva ${i + 1}`}
+            aria-current={i === active}
+            onClick={() => go(i)}
+          />
+        ))}
+      </div>
     </section>
   );
 }

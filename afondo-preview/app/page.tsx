@@ -1,35 +1,30 @@
-import { Allies } from "@/components/Allies";
-import { Departures } from "@/components/Departures";
-import { Destinations } from "@/components/Destinations";
+import { Destinos } from "@/components/Destinos";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
+import { Historia } from "@/components/Historia";
 import { MotionProvider } from "@/components/motion";
-import { Newsletter } from "@/components/Newsletter";
-import { Pillars } from "@/components/Pillars";
-import { Story } from "@/components/Story";
-import { TravelModes } from "@/components/TravelModes";
+import { Mundo } from "@/components/Mundo";
+import { PorQue } from "@/components/PorQue";
+import { Proximos } from "@/components/Proximos";
+import { Vivir } from "@/components/Vivir";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
 
 export default function Home() {
   return (
     <MotionProvider>
-      <a
-        href="#contenido"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus:bg-ink focus:px-4 focus:py-2 focus:text-bg"
-      >
+      <a href="#contenido" className="sr-only-focusable" style={{ position: "fixed", top: 8, left: 8, zIndex: 60, background: "var(--navy)", color: "var(--cream)", padding: "8px 14px" }}>
         Saltar al contenido
       </a>
       <Header />
       <main id="contenido">
         <Hero />
-        <TravelModes />
-        <Destinations />
-        <Departures />
-        <Story />
-        <Pillars />
-        <Allies />
-        <Newsletter />
+        <Destinos />
+        <Mundo />
+        <Vivir />
+        <Historia />
+        <PorQue />
+        <Proximos />
       </main>
       <Footer />
       <WhatsAppFloat />

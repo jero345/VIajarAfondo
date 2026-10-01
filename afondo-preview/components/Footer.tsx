@@ -1,6 +1,6 @@
 import { FacebookLogo, InstagramLogo, LinkedinLogo } from "@phosphor-icons/react/ssr";
 
-import { Logo } from "@/components/Logo";
+import { LogoCompleto } from "@/components/LogoCompleto";
 import { contact } from "@/lib/content";
 
 // The mockup ends at "Próximos destinos"; this footer carries the legal and contact data the site needs,
@@ -22,8 +22,7 @@ export function Footer() {
     <footer className="footer ff-surt">
       <div className="footer__inner frame">
         <div>
-          <Logo className="footer__logo" />
-          <p className="footer__quote ff-adelon">Porque viajar no es pasar por un lugar, sino conocerlo AFondo</p>
+          <LogoCompleto className="footer__logo" />
         </div>
         <div>
           <h2>Contacto</h2>

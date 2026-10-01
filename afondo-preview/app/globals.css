@@ -1753,18 +1753,10 @@ section[id],
 }
 
 .footer__logo {
-  width: 160px;
+  display: block;
+  width: 200px;
   height: auto;
-}
-
-.footer .footer__quote {
-  margin: 20px 0 0;
-  max-width: 24ch;
-  color: var(--gold);
-  font-weight: 300;
-  font-size: 24px;
-  line-height: 1.2;
-  text-transform: uppercase;
+  color: var(--cream);
 }
 
 .footer h2 {
@@ -1820,11 +1812,7 @@ section[id],
   }
 
   .footer__logo {
-    width: calc(260 * var(--u));
-  }
-
-  .footer .footer__quote {
-    font-size: calc(34 * var(--u));
+    width: max(220px, calc(300 * var(--u)));
   }
 
   .footer h2 {

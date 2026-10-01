@@ -61,6 +61,12 @@ JS = r"""(targets) => {
       const want = text.toUpperCase();
       if (shown.toUpperCase().startsWith(want.slice(0, Math.min(want.length, 12)))) { found = n; break; }
     }
+    if (!found) {
+      // Split headings: match the element's whole text, then take its first glyph.
+      const want = text.toUpperCase().replace(/\s+/g, ' ');
+      const el = [...root.querySelectorAll('h1,h2,h3,p')].find(e => !e.closest('[aria-hidden="true"]') && e.textContent.replace(/\s+/g, ' ').trim().toUpperCase().startsWith(want));
+      if (el) { const w2 = document.createTreeWalker(el, NodeFilter.SHOW_TEXT); let t; while ((t = w2.nextNode())) { if (t.nodeValue.trim()) { found = t; break; } } }
+    }
     if (!found) { out.push([label, 'NOT FOUND']); continue; }
     const idx = found.nodeValue.search(/\S/);
     const r = document.createRange(); r.setStart(found, idx); r.setEnd(found, idx + 1);

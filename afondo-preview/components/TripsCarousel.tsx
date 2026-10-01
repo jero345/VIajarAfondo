@@ -1,9 +1,11 @@
 "use client";
 
+import { m } from "motion/react";
 import Image from "next/image";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from "react";
 
 import { Logo } from "@/components/Logo";
+import { EASE, useTilt } from "@/components/motion";
 import { tripCards, whatsappLink, type TripCard } from "@/lib/content";
 
 const N = tripCards.length;
@@ -19,9 +21,10 @@ function Chevron({ dir }: { dir: "prev" | "next" }) {
   );
 }
 
-function Trip({ card, hidden }: { card: TripCard; hidden: boolean }) {
+function Trip({ card, hidden, order }: { card: TripCard; hidden: boolean; order: number }) {
+  const tilt = useTilt(6);
   return (
-    <a
+    <m.a
       className="trip ff-surt"
       href={whatsappLink(`Hola AFondo, quiero información del viaje grupal a ${card.destination} 2027.`)}
       target="_blank"
@@ -30,7 +33,16 @@ function Trip({ card, hidden }: { card: TripCard; hidden: boolean }) {
       aria-hidden={hidden || undefined}
       aria-label={`${card.destination}: viaje grupal 2027`}
       draggable={false}
+      style={tilt.style}
+      onPointerMove={tilt.onPointerMove}
+      onPointerLeave={tilt.onPointerLeave}
+      // Only the visible deck enters on scroll; the loop copies are already in place when they slide in.
+      initial={hidden ? false : { opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 1, delay: order * 0.1, ease: EASE }}
     >
+      <m.span className="trip__glare" style={{ background: tilt.glare }} aria-hidden />
       <Image
         className="trip__photo"
         src={card.image}
@@ -66,7 +78,7 @@ function Trip({ card, hidden }: { card: TripCard; hidden: boolean }) {
           ))}
         </p>
       </div>
-    </a>
+    </m.a>
   );
 }
 
@@ -162,7 +174,7 @@ export function TripsCarousel() {
           }}
         >
           {deck.map(({ card, i, copy }) => (
-            <Trip key={`${copy}-${i}`} card={card} hidden={copy !== 1} />
+            <Trip key={`${copy}-${i}`} card={card} hidden={copy !== 1} order={i} />
           ))}
         </div>
       </div>

@@ -5,16 +5,23 @@ import { AnimatePresence, m, useMotionValueEvent, useScroll } from "motion/react
 import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/Logo";
-import { EASE } from "@/components/motion";
+import { EASE, MagneticLink } from "@/components/motion";
 import { contact, menuExtra, nav, planTripLink } from "@/lib/content";
 
 export function Header() {
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const [solid, setSolid] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
 
-  // Flips only when crossing the threshold; React bails out on equal values.
-  useMotionValueEvent(scrollY, "change", (y) => setSolid(y > 40));
+  // State only flips when a threshold is crossed; React bails out on equal values.
+  // The header tucks away while reading down and comes back as soon as the visitor scrolls up.
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setSolid(y > 40);
+    setHidden(y > 400 && y > prev + 2);
+    if (y < prev - 2) setHidden(false);
+  });
 
   useEffect(() => {
     if (!open) return;
@@ -32,7 +39,11 @@ export function Header() {
 
   return (
     <>
-      <header className={`hdr${solid ? " is-solid" : ""}`}>
+      <m.header
+        className={`hdr${solid ? " is-solid" : ""}`}
+        animate={{ y: hidden && !open ? "-100%" : "0%" }}
+        transition={{ duration: 0.55, ease: EASE }}
+      >
         <div className="hdr__row frame">
           <a href="#inicio" className="hdr__logo" aria-label="AFondo, volver al inicio">
             <Logo title={null} />
@@ -49,9 +60,9 @@ export function Header() {
           </nav>
 
           <div className="hdr__cta ff-surt">
-            <a href={planTripLink} target="_blank" rel="noopener noreferrer">
+            <MagneticLink href={planTripLink} strength={0.2}>
               Empieza a planear tu viaje
-            </a>
+            </MagneticLink>
           </div>
 
           <button
@@ -67,7 +78,8 @@ export function Header() {
             <span />
           </button>
         </div>
-      </header>
+        <m.div className="hdr__progress" style={{ scaleX: scrollYProgress }} aria-hidden />
+      </m.header>
 
       <AnimatePresence>
         {open && (

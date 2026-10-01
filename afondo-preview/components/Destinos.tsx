@@ -1,4 +1,4 @@
-import { Reveal } from "@/components/motion";
+import { Reveal, SplitHeading } from "@/components/motion";
 import { TripsCarousel } from "@/components/TripsCarousel";
 import { tripFilters } from "@/lib/content";
 
@@ -9,12 +9,7 @@ export function Destinos() {
   return (
     <section id="destinos" className="dest" aria-labelledby="destinos-title">
       <div className="frame">
-        <Reveal>
-          <h2 id="destinos-title" className="dest__title ff-adelon">
-            ¿Qué lugar sueñas <br className="br-d" />
-            con descubrir?
-          </h2>
-        </Reveal>
+        <SplitHeading id="destinos-title" className="dest__title ff-adelon" lines={["¿Qué lugar sueñas", "con descubrir?"]} />
 
         <Reveal className="dest__bar" delay={0.08}>
           <p className="dest__lead ff-surt">
